@@ -19,8 +19,6 @@ public:
 private:
 
 	GameDataRef mData;
-	sf::Clock mClock;
-
 	sf::Sprite skyBackground;
 	sf::Sprite mainTitle;
 	sf::Sprite playButton;

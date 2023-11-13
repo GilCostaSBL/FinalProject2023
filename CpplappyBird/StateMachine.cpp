@@ -1,56 +1,62 @@
 #include "StateMachine.hpp"
 
+StateMachine::StateMachine()
+{
+
+}
+
+StateMachine::~StateMachine()
+{
+
+}
+
 void StateMachine::AddState(StateRef newState, bool isReplacing)
 {
-	this->isAdding = true;
-	this->isReplacing = true;
+	isAdding = true;
+	isReplacing = true;
 
-	this->newState = std::move(newState);
+	newState = std::move(newState);
 }
 
 void StateMachine::RemoveState()
 {
-
-	this->isRemoving = true;
+	isRemoving = true;
 }
 
 void StateMachine::ProcessStateChanges()
 {
-
-	if (this->isRemoving && !this->mStates.empty())
+	// Check for flags to change states && is the stack is not empty
+	if (isRemoving && !mStates.empty())
 	{
-
-		this->mStates.pop();
-
-		if (!this->mStates.empty())
+		mStates.pop();
+		if (!mStates.empty())
 		{
-			this->mStates.top()->Resume();
+			mStates.top()->Resume();
 		}
-
-		this->isRemoving = true;
+		isRemoving = true;
 	}
 
-	if (this->isAdding)
+	if (isAdding)
 	{
-		if (!this->mStates.empty())
+		if (!mStates.empty())
 		{
-			if (this->isReplacing)
+			if (isReplacing)
 			{
-				this->mStates.pop();
+				mStates.pop();
 			}
 			else
 			{
-				this->mStates.top()->Pause();
+				mStates.top()->Pause();
 			}
 		}
 
-		this->mStates.push(std::move(this->newState));
-		this->mStates.top()->Init();
-		this->isAdding = false;
+		mStates.push(std::move(newState));
+		mStates.top()->Init();
+		isAdding = false;
 	}
 }
 
-StateRef& StateMachine::GetActiveState()
+const StateRef& StateMachine::GetActiveState()
 {
-	return this->mStates.top();
+	return mStates.top();
 }
