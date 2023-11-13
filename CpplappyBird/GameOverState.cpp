@@ -8,12 +8,10 @@
 GameOverState::GameOverState(GameDataRef data, int score) : mData(data), mScore(score)
 {
 	std::cout << "[GameOverState::GameOverState] Game state" << std::endl;
-
 }
 
 void GameOverState::Init()
 {
-
 	std::ifstream readFile;
 	readFile.open(HIGHEST_SCORE_PATH, std::ios::app);
 
@@ -57,10 +55,10 @@ void GameOverState::Init()
 	mData->assets.LoadTexture("GoldMedal", GOLD_MEDAL_FILEPATH);
 	mData->assets.LoadTexture("PlatinumMedal", PLATINUM_MEDAL_FILEPATH);
 
-	skyBackground.setTexture(this->mData->assets.GetTexture("GameOverStateBackground"));
-	gameOverTitle.setTexture(this->mData->assets.GetTexture("GameOverStateTitle"));
-	gameOverContainer.setTexture(this->mData->assets.GetTexture("GameOverStateBody"));
-	retryButton.setTexture(this->mData->assets.GetTexture("PlayButton"));
+	skyBackground.setTexture(mData->assets.GetTexture("GameOverStateBackground"));
+	gameOverTitle.setTexture(mData->assets.GetTexture("GameOverStateTitle"));
+	gameOverContainer.setTexture(mData->assets.GetTexture("GameOverStateBody"));
+	retryButton.setTexture(mData->assets.GetTexture("PlayButton"));
 
 	gameOverContainer.setPosition(mData->window.getSize().x / 2 - (gameOverContainer.getGlobalBounds().width / 2),
 		(mData->window.getSize().y / 2) - (gameOverContainer.getGlobalBounds().height / 2));
