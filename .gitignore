@@ -36,3 +36,6 @@
 
 # Random Files
 *.tlog
+
+# Folders
+/x64
