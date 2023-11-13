@@ -1,25 +1,25 @@
-#include "HUD.hpp"
+#include "HUD.h"
 
-HUD::HUD(GameDataRef data) : mData(data)
+HUD::HUD(GameDataRef data) : _data(data)
 {
 
-	scoreText.setFont(mData->assets.GetFont("FlappyFont"));
-	scoreText.setString("0");
-	scoreText.setCharacterSize(128);
-	scoreText.setFillColor(sf::Color::White);
-	scoreText.setOrigin(scoreText.getGlobalBounds().width / 2, scoreText.getGlobalBounds().height / 2);
-	scoreText.setPosition(mData->window.getSize().x / 2, mData->window.getSize().y / 5);
+	_scoreText.setFont(_data->assets.GetFont("FlappyFont"));
+	_scoreText.setString("0");
+	_scoreText.setCharacterSize(128);
+	_scoreText.setFillColor(sf::Color::White);
+	_scoreText.setOrigin(_scoreText.getGlobalBounds().width / 2, _scoreText.getGlobalBounds().height / 2);
+	_scoreText.setPosition(_data->window.getSize().x / 2, _data->window.getSize().y / 5);
 
 }
 
 void HUD::Draw()
 {
 
-	mData->window.draw(scoreText);
+	_data->window.draw(_scoreText);
 }
 
 void  HUD::UpdateScore(int score)
 {
 
-	scoreText.setString(std::to_string(score));
+	_scoreText.setString(std::to_string(score));
 }

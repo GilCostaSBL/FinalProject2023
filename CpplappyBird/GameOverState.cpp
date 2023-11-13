@@ -1,17 +1,19 @@
 #include <sstream>
 #include <iostream>
 #include <fstream>
-#include "GameOverState.hpp"
-#include "Definitions.hpp"
-#include "GameState.hpp"
+#include "GameOverState.h"
+#include "Definitions.h"
+#include "GameState.h"
 
-GameOverState::GameOverState(GameDataRef data, int score) : mData(data), mScore(score)
+GameOverState::GameOverState(GameDataRef data, int score) : _data(data), _score(score)
 {
 	std::cout << "[GameOverState::GameOverState] Game state" << std::endl;
+
 }
 
 void GameOverState::Init()
 {
+
 	std::ifstream readFile;
 	readFile.open(HIGHEST_SCORE_PATH, std::ios::app);
 
@@ -19,7 +21,7 @@ void GameOverState::Init()
 	{
 		while (!readFile.eof())
 		{
-			readFile >> mHighScore;
+			readFile >> _highScore;
 		}
 	}
 	else
@@ -33,12 +35,12 @@ void GameOverState::Init()
 
 	if (writeFile.is_open())
 	{
-		if (mScore > mHighScore)
+		if (_score > _highScore)
 		{
-			mHighScore = mScore;
+			_highScore = _score;
 		}
 
-		writeFile << mHighScore;
+		writeFile << _highScore;
 	}
 	else
 	{
@@ -47,61 +49,61 @@ void GameOverState::Init()
 
 	writeFile.close();
 
-	mData->assets.LoadTexture("GameOverStateBackground", GAME_OVER_BACKGROUND_FILEPATH);
-	mData->assets.LoadTexture("GameOverStateTitle", GAME_OVER_TITLE_FILEPATH);
-	mData->assets.LoadTexture("GameOverStateBody", GAME_OVER_BODY_FILEPATH);
-	mData->assets.LoadTexture("BronzeMedal", BRONZE_MEDAL_FILEPATH);
-	mData->assets.LoadTexture("SilverMedal", SILVER_MEDAL_FILEPATH);
-	mData->assets.LoadTexture("GoldMedal", GOLD_MEDAL_FILEPATH);
-	mData->assets.LoadTexture("PlatinumMedal", PLATINUM_MEDAL_FILEPATH);
+	_data->assets.LoadTexture("GameOverStateBackground", GAME_OVER_BACKGROUND_FILEPATH);
+	_data->assets.LoadTexture("GameOverStateTitle", GAME_OVER_TITLE_FILEPATH);
+	_data->assets.LoadTexture("GameOverStateBody", GAME_OVER_BODY_FILEPATH);
+	_data->assets.LoadTexture("BronzeMedal", BRONZE_MEDAL_FILEPATH);
+	_data->assets.LoadTexture("SilverMedal", SILVER_MEDAL_FILEPATH);
+	_data->assets.LoadTexture("GoldMedal", GOLD_MEDAL_FILEPATH);
+	_data->assets.LoadTexture("PlatinumMedal", PLATINUM_MEDAL_FILEPATH);
 
-	skyBackground.setTexture(mData->assets.GetTexture("GameOverStateBackground"));
-	gameOverTitle.setTexture(mData->assets.GetTexture("GameOverStateTitle"));
-	gameOverContainer.setTexture(mData->assets.GetTexture("GameOverStateBody"));
-	retryButton.setTexture(mData->assets.GetTexture("PlayButton"));
+	_background.setTexture(this->_data->assets.GetTexture("GameOverStateBackground"));
+	_gameOverTitle.setTexture(this->_data->assets.GetTexture("GameOverStateTitle"));
+	_gameOverContainer.setTexture(this->_data->assets.GetTexture("GameOverStateBody"));
+	_retryButton.setTexture(this->_data->assets.GetTexture("PlayButton"));
 
-	gameOverContainer.setPosition(mData->window.getSize().x / 2 - (gameOverContainer.getGlobalBounds().width / 2),
-		(mData->window.getSize().y / 2) - (gameOverContainer.getGlobalBounds().height / 2));
+	_gameOverContainer.setPosition(_data->window.getSize().x / 2 - (_gameOverContainer.getGlobalBounds().width / 2),
+		(_data->window.getSize().y / 2) - (_gameOverContainer.getGlobalBounds().height / 2));
 
-	gameOverTitle.setPosition((mData->window.getSize().x / 2) - (gameOverTitle.getGlobalBounds().width / 2),
-		gameOverContainer.getPosition().y - (gameOverTitle.getGlobalBounds().height * 1.2));
+	_gameOverTitle.setPosition((_data->window.getSize().x / 2) - (_gameOverTitle.getGlobalBounds().width / 2),
+		_gameOverContainer.getPosition().y - (_gameOverTitle.getGlobalBounds().height * 1.2));
 
-	retryButton.setPosition((mData->window.getSize().x / 2) - (gameOverTitle.getGlobalBounds().width / 2),
-		gameOverContainer.getPosition().y + gameOverContainer.getGlobalBounds().height +
-		retryButton.getLocalBounds().height * 0.2);
+	_retryButton.setPosition((_data->window.getSize().x / 2) - (_gameOverTitle.getGlobalBounds().width / 2),
+		_gameOverContainer.getPosition().y + _gameOverContainer.getGlobalBounds().height +
+		_retryButton.getLocalBounds().height * 0.2);
 
-	scoreText.setFont(mData->assets.GetFont("FlappyFont"));
-	scoreText.setString(std::to_string(mScore));
-	scoreText.setCharacterSize(56);
-	scoreText.setFillColor(sf::Color::White);
-	scoreText.setOrigin(scoreText.getGlobalBounds().width / 2, scoreText.getGlobalBounds().height / 2);
-	scoreText.setPosition(mData->window.getSize().x / 10 * 7.25, mData->window.getSize().y / 2.15);
+	_scoreText.setFont(_data->assets.GetFont("FlappyFont"));
+	_scoreText.setString(std::to_string(_score));
+	_scoreText.setCharacterSize(56);
+	_scoreText.setFillColor(sf::Color::White);
+	_scoreText.setOrigin(_scoreText.getGlobalBounds().width / 2, _scoreText.getGlobalBounds().height / 2);
+	_scoreText.setPosition(_data->window.getSize().x / 10 * 7.25, _data->window.getSize().y / 2.15);
 
-	highScoreText.setFont(mData->assets.GetFont("FlappyFont"));
-	highScoreText.setString(std::to_string(mHighScore));
-	highScoreText.setCharacterSize(56);
-	highScoreText.setFillColor(sf::Color::White);
-	highScoreText.setOrigin(highScoreText.getGlobalBounds().width / 2, highScoreText.getGlobalBounds().height / 2);
-	highScoreText.setPosition(mData->window.getSize().x / 10 * 7.25, mData->window.getSize().y / 1.78);
+	_highScoreText.setFont(_data->assets.GetFont("FlappyFont"));
+	_highScoreText.setString(std::to_string(_highScore));
+	_highScoreText.setCharacterSize(56);
+	_highScoreText.setFillColor(sf::Color::White);
+	_highScoreText.setOrigin(_highScoreText.getGlobalBounds().width / 2, _highScoreText.getGlobalBounds().height / 2);
+	_highScoreText.setPosition(_data->window.getSize().x / 10 * 7.25, _data->window.getSize().y / 1.78);
 
-	if (mScore >= PLATINUM_MEDAL_SCORE)
+	if (_score >= PLATINUM_MEDAL_SCORE)
 	{
-		medalSlot.setTexture(mData->assets.GetTexture("PlatinumMedal"));
+		_medal.setTexture(_data->assets.GetTexture("PlatinumMedal"));
 	}
-	else if (mScore >= GOLD_MEDAL_SCORE)
+	else if (_score >= GOLD_MEDAL_SCORE)
 	{
-		medalSlot.setTexture(mData->assets.GetTexture("GoldMedal"));
+		_medal.setTexture(_data->assets.GetTexture("GoldMedal"));
 	}
-	else if (mScore >= SILVER_MEDAL_SCORE)
+	else if (_score >= SILVER_MEDAL_SCORE)
 	{
-		medalSlot.setTexture(mData->assets.GetTexture("SilverMedal"));
+		_medal.setTexture(_data->assets.GetTexture("SilverMedal"));
 	}
 	else
 	{
-		medalSlot.setTexture(mData->assets.GetTexture("BronzeMedal"));
+		_medal.setTexture(_data->assets.GetTexture("BronzeMedal"));
 	}
 
-	medalSlot.setPosition(175, 465);
+	_medal.setPosition(175, 465);
 }
 
 void GameOverState::HandleInput()
@@ -109,36 +111,36 @@ void GameOverState::HandleInput()
 
 	sf::Event event;
 
-	while (mData->window.pollEvent(event))
+	while (_data->window.pollEvent(event))
 	{
 
 		if (sf::Event::Closed == event.type)
-			mData->window.close();
+			_data->window.close();
 
-		if (mData->input.IsSpriteClicked(retryButton, sf::Mouse::Left, mData->window))
+		if (_data->input.IsSpriteClicked(_retryButton, sf::Mouse::Left, _data->window))
 		{
-			mData->machine.AddState(StateRef(new GameState(mData)), true);
+			_data->machine.AddState(StateRef(new GameState(_data)), true);
 		}
 	}
 }
 
-void GameOverState::Update(float deltaTime)
+void GameOverState::Update(float dt)
 {
 
 
 }
 
-void GameOverState::Draw(float deltaTime)
+void GameOverState::Draw(float dt)
 {
 
-	mData->window.clear();
-	mData->window.draw(skyBackground);
-	mData->window.draw(gameOverContainer);
-	mData->window.draw(gameOverTitle);
-	mData->window.draw(retryButton);
-	mData->window.draw(scoreText);
-	mData->window.draw(highScoreText);
-	mData->window.draw(medalSlot);
-	mData->window.display();
+	_data->window.clear();
+	_data->window.draw(_background);
+	_data->window.draw(_gameOverContainer);
+	_data->window.draw(_gameOverTitle);
+	_data->window.draw(_retryButton);
+	_data->window.draw(_scoreText);
+	_data->window.draw(_highScoreText);
+	_data->window.draw(_medal);
+	_data->window.display();
 }
 

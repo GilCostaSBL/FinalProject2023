@@ -1,5 +1,5 @@
-#include "Game.hpp"
-#include "SplashState.hpp"
+#include "Game.h"
+#include "SplashState.h"
 #include <stdlib.h>
 #include <time.h>
 
@@ -8,10 +8,10 @@ Game::Game(int width, int height, std::string title)
 
 	srand(time(NULL));
 
-	mData->window.create(sf::VideoMode(width, height), title, sf::Style::Close | sf::Style::Titlebar);
-	mData->machine.AddState(StateRef(new SplashState(mData)));
+	_data->window.create(sf::VideoMode(width, height), title, sf::Style::Close | sf::Style::Titlebar);
+	_data->machine.AddState(StateRef(new SplashState(this->_data)));
 
-	Run();
+	this->Run();
 }
 
 void Game::Run()
@@ -19,15 +19,17 @@ void Game::Run()
 
 	float newTime, frameTime, interpolation;
 
-	float currentTime = mClock.getElapsedTime().asSeconds();
+	float currentTime = this->_clock.getElapsedTime().asSeconds();
 	float accumulator = 0.0f;
 
-	while (mData->window.isOpen())
+	while (this->_data->window.isOpen())
 	{
-		mData->machine.ProcessStateChanges();
 
-		newTime = mClock.getElapsedTime().asSeconds();
+		this->_data->machine.ProcessStateChanges();
+
+		newTime = this->_clock.getElapsedTime().asSeconds();
 		frameTime = newTime - currentTime;
+
 		if (frameTime > 0.25f)
 		{
 			frameTime = 0.25f;
@@ -36,15 +38,15 @@ void Game::Run()
 		currentTime = newTime;
 		accumulator += frameTime;
 
-		while (accumulator >= deltaTime)
+		while (accumulator >= dt)
 		{
-			mData->machine.GetActiveState()->HandleInput();
-			mData->machine.GetActiveState()->Update(deltaTime);
+			this->_data->machine.GetActiveState()->HandleInput();
+			this->_data->machine.GetActiveState()->Update(dt);
 
-			accumulator -= deltaTime;
+			accumulator -= dt;
 		}
 
-		interpolation = accumulator / deltaTime;
-		mData->machine.GetActiveState()->Draw(interpolation);
+		interpolation = accumulator / dt;
+		this->_data->machine.GetActiveState()->Draw(interpolation);
 	}
 }

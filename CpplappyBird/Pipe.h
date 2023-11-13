@@ -1,9 +1,9 @@
 #pragma once
 
 #include <SFML\Graphics.hpp>
-#include "Game.hpp"
+#include "Game.h"
 #include <vector>
-#include "Definitions.hpp"
+#include "Definitions.h"
 
 class Pipe
 {
@@ -14,9 +14,9 @@ public:
 
 	void SpawnBottomPipe();
 	void SpawnTopPipe();
-	void SpawnInvisiblePipe();
+	void SpawnIvisiblePipe();
 	void SpawnScoringPipe();
-	void MovePipes(float deltaTime);
+	void MovePipes(float dt);
 	void DrawPipes();
 	void RandomisePipeOffset();
 
@@ -25,10 +25,10 @@ public:
 
 private:
 
-	GameDataRef mData;
+	GameDataRef _data;
 	std::vector<sf::Sprite> pipeSprites;
 	std::vector<sf::Sprite> scoringPipes;
 
-	int landHeight;
-	int pipeYDistance;
+	int _landHeight;
+	int _pipeSpawnYOffset;
 };

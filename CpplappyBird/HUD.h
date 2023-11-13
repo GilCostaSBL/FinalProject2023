@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML\Graphics.hpp>
-#include "Definitions.hpp"
-#include "Game.hpp"
+#include "Definitions.h"
+#include "Game.h"
 
 class HUD
 {
@@ -15,6 +15,7 @@ public:
 
 private:
 
-	GameDataRef mData;
-	sf::Text scoreText;
+	GameDataRef _data;
+	sf::Text _scoreText;
 };
+

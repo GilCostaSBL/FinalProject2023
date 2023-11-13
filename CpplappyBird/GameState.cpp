@@ -1,118 +1,129 @@
 #include <sstream>
 #include <iostream>
-#include "GameState.hpp"
-#include "Definitions.hpp"
-#include "GameOverState.hpp"
+#include "GameState.h"
+#include "Definitions.h"
+#include "GameOverState.h"
 
-GameState::GameState(GameDataRef data) : mData(data)
+GameState::GameState(GameDataRef data) : _data(data)
 {
 	std::cout << "[GameState::GameState] Game state" << std::endl;
-}
 
-GameState::~GameState()
-{
-	delete pipe;
-	delete land;
-	delete bird;
-	delete flash;
-	delete hud;
 }
 
 void GameState::Init()
 {
-	if (!hitSoundBuffer.loadFromFile(HIT_SOUND_FILEPATH))
+
+	if (!_hitSoundBuffer.loadFromFile(HIT_SOUND_FILEPATH))
 	{
 		std::cout << "[GameState::Init] Hit sound could not be loaded" << std::endl;
 	}
-	if (!wingSoundBuffer.loadFromFile(WING_SOUND_FILEPATH))
+	if (!_wingSoundBuffer.loadFromFile(WING_SOUND_FILEPATH))
 	{
 		std::cout << "[GameState::Init] Wing sound could not be loaded" << std::endl;
 	}
-	if (!pointSoundBuffer.loadFromFile(POINT_SOUND_FILEPATH))
+	if (!_pointSoundBuffer.loadFromFile(POINT_SOUND_FILEPATH))
 	{
 		std::cout << "[GameState::Init] Point sound could not be loaded" << std::endl;
 	}
 
-	hitSound.setBuffer(hitSoundBuffer);
-	wingSound.setBuffer(wingSoundBuffer);
-	pointSound.setBuffer(pointSoundBuffer);
+	_hitSound.setBuffer(_hitSoundBuffer);
+	_wingSound.setBuffer(_wingSoundBuffer);
+	_pointSound.setBuffer(_pointSoundBuffer);
 
-	mData->assets.LoadTexture("GameStateBackground", GAME_STATE_BACKGROUND_FILEPATH);
-	mData->assets.LoadTexture("PipeUp", PIPE_UP_FILEPATH);
-	mData->assets.LoadTexture("PipeDown", PIPE_DOWN_FILEPATH);
-	mData->assets.LoadTexture("ScoringPipe", PIPE_SCORING_FILEPATH);
-	mData->assets.LoadTexture("Land", LAND_FILEPATH);
-	mData->assets.LoadTexture("BirdFrame1", BIRD_FRAME_1_FILEPATH);
-	mData->assets.LoadTexture("BirdFrame2", BIRD_FRAME_2_FILEPATH);
-	mData->assets.LoadTexture("BirdFrame3", BIRD_FRAME_3_FILEPATH);
-	mData->assets.LoadTexture("BirdFrame4", BIRD_FRAME_4_FILEPATH);
-	mData->assets.LoadFont("FlappyFont", FLAPPY_FONT_FILEPATH);
+	_data->assets.LoadTexture("GameStateBackground", GAME_STATE_BACKGROUND_FILEPATH);
+	_data->assets.LoadTexture("PipeUp", PIPE_UP_FILEPATH);
+	_data->assets.LoadTexture("PipeDown", PIPE_DOWN_FILEPATH);
+	_data->assets.LoadTexture("ScoringPipe", PIPE_SCORING_FILEPATH);
+	_data->assets.LoadTexture("Land", LAND_FILEPATH);
+	_data->assets.LoadTexture("BirdFrame1", BIRD_FRAME_1_FILEPATH);
+	_data->assets.LoadTexture("BirdFrame2", BIRD_FRAME_2_FILEPATH);
+	_data->assets.LoadTexture("BirdFrame3", BIRD_FRAME_3_FILEPATH);
+	_data->assets.LoadTexture("BirdFrame4", BIRD_FRAME_4_FILEPATH);
+	_data->assets.LoadFont("FlappyFont", FLAPPY_FONT_FILEPATH);
 
-	pipe = new Pipe(mData);
-	land = new Land(mData);
-	bird = new Bird(mData);
-	flash = new Flash(mData);
-	hud = new HUD(mData);
+	pipe = new Pipe(_data);
+	land = new Land(_data);
+	bird = new Bird(_data);
+	flash = new Flash(_data);
+	hud = new HUD(_data);
 
-	mScore = 0;
-	hud->UpdateScore(mScore);
+	_score = 0;
+	hud->UpdateScore(_score);
 
-	skyBackground.setTexture(this->mData->assets.GetTexture("GameStateBackground"));
-	mGameState = GameStates::eReady;
+	_background.setTexture(this->_data->assets.GetTexture("GameStateBackground"));
+	_gameState = GameStates::eReady;
+
 }
 
 void GameState::HandleInput()
 {
+
 	sf::Event event;
-	while (mData->window.pollEvent(event))
+
+	while (_data->window.pollEvent(event))
 	{
+
 		if (sf::Event::Closed == event.type)
-			mData->window.close();
-		if (mData->input.IsSpriteClicked(skyBackground, sf::Mouse::Left, mData->window))
+			_data->window.close();
+
+		if (_data->input.IsSpriteClicked(_background, sf::Mouse::Left, _data->window))
 		{
-			if (GameStates::eGameOver != mGameState)
+			if (GameStates::eGameOver != _gameState)
 			{
-				mGameState = GameStates::ePlaying;
+
+				_gameState = GameStates::ePlaying;
 				bird->Tap();
-				wingSound.play();
+				_wingSound.play();
 			}
 		}
+
 	}
 }
 
-void GameState::Update(float deltaTime)
+void GameState::Update(float dt)
 {
-	if (GameStates::eGameOver != mGameState)
+
+	if (GameStates::eGameOver != _gameState)
 	{
-		bird->Animate(deltaTime);
-		land->MoveLand(deltaTime);
+
+		bird->Animate(dt);
+		land->MoveLand(dt);
 	}
 
-	if (GameStates::ePlaying == mGameState)
+	if (GameStates::ePlaying == _gameState)
 	{
-		pipe->MovePipes(deltaTime);
-		if (mClock.getElapsedTime().asSeconds() > PIPE_SPAWN_FREQUENCY)
+
+		pipe->MovePipes(dt);
+
+		if (_clock.getElapsedTime().asSeconds() > PIPE_SPAWN_FREQUENCY)
 		{
 			pipe->RandomisePipeOffset();
-			pipe->SpawnInvisiblePipe();
+
+			pipe->SpawnIvisiblePipe();
 			pipe->SpawnBottomPipe();
 			pipe->SpawnTopPipe();
 			pipe->SpawnScoringPipe();
 
-			mClock.restart();
+			_clock.restart();
 		}
 
-		bird->Update(deltaTime);
+
+		bird->Update(dt);
+
 
 		// Ground collision
 		std::vector<sf::Sprite> landSprites = land->GetSprites();
+
 		for (int i = 0; i < landSprites.size(); i++)
 		{
 			if (collision.CheckSpriteCollision(bird->GetSprite(), 0.7f, landSprites.at(i), 1.0f))
 			{
-				mGameState = GameStates::eGameOver;
-				mClock.restart();
-				hitSound.play();
+
+				_gameState = GameStates::eGameOver;
+
+				_clock.restart();
+
+				_hitSound.play();
 			}
 		}
 
@@ -123,52 +134,66 @@ void GameState::Update(float deltaTime)
 		{
 			if (collision.CheckSpriteCollision(bird->GetSprite(), 0.625f, pipeSprites.at(i), 1.0f))
 			{
-				mGameState = GameStates::eGameOver;
-				mClock.restart();
-				hitSound.play();
+
+				_gameState = GameStates::eGameOver;
+
+				_clock.restart();
+
+				_hitSound.play();
 			}
 		}
 
 
-		if (GameStates::ePlaying == mGameState)
+		if (GameStates::ePlaying == _gameState)
 		{
-			// Scoring pipe collision
+
+// Scoring pipe collision
 			std::vector<sf::Sprite>& scoringSprites = pipe->GetScoringSprites();
+			//std::cout << "Sp: " << scoringSprites.size() << std::endl;
 
 			for (int i = 0; i < scoringSprites.size(); i++)
 			{
 				if (collision.CheckSpriteCollision(bird->GetSprite(), 0.625f, scoringSprites.at(i), 1.0f))
 				{
-					mScore++;
-					hud->UpdateScore(mScore);
+
+					_score++;
+
+					hud->UpdateScore(_score);
+
 					scoringSprites.erase(scoringSprites.begin() + i);
-					pointSound.play();
+
+					_pointSound.play();
 				}
 			}
 		}
+
+
 	}
 
 	// GameOver flash
-	if (GameStates::eGameOver == mGameState)
+	if (GameStates::eGameOver == _gameState)
 	{
-		flash->Show(deltaTime);
-		if (mClock.getElapsedTime().asSeconds() > TIME_BEFORE_GAME_OVER)
-			mData->machine.AddState(StateRef(new GameOverState(mData, mScore)), true);
+
+		flash->Show(dt);
+
+		if (_clock.getElapsedTime().asSeconds() > TIME_BEFORE_GAME_OVER)
+			_data->machine.AddState(StateRef(new GameOverState(_data, _score)), true);
 	}
 }
 
-void GameState::Draw(float deltaTime)
+void GameState::Draw(float dt)
 {
-	mData->window.clear();
 
-	mData->window.draw(skyBackground);
+	_data->window.clear();
+
+	_data->window.draw(_background);
 	pipe->DrawPipes();
 	land->DrawLand();
 	bird->Draw();
 	flash->Draw();
 	hud->Draw();
 
-	mData->window.display();
+	_data->window.display();
 }
 
 

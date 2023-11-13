@@ -1,12 +1,4 @@
-#include "AssetManager.hpp"
-
-AssetManager::AssetManager()
-{
-}
-
-AssetManager::~AssetManager()
-{
-}
+#include "AssetManager.h"
 
 void AssetManager::LoadTexture(std::string name, std::string fileName)
 {
@@ -14,7 +6,7 @@ void AssetManager::LoadTexture(std::string name, std::string fileName)
 
 	if (tex.loadFromFile(fileName))
 	{
-		mTextures[name] = tex;
+		this->_textures[name] = tex;
 	}
 	else
 	{
@@ -22,9 +14,9 @@ void AssetManager::LoadTexture(std::string name, std::string fileName)
 	}
 }
 
-const sf::Texture& AssetManager::GetTexture(std::string name)
+sf::Texture& AssetManager::GetTexture(std::string name)
 {
-	return mTextures.at(name);
+	return this->_textures.at(name);
 }
 
 void AssetManager::LoadFont(std::string name, std::string fileName)
@@ -33,7 +25,7 @@ void AssetManager::LoadFont(std::string name, std::string fileName)
 
 	if (font.loadFromFile(fileName))
 	{
-		mFonts[name] = font;
+		this->_fonts[name] = font;
 	}
 	else
 	{
@@ -41,7 +33,8 @@ void AssetManager::LoadFont(std::string name, std::string fileName)
 	}
 }
 
-const sf::Font& AssetManager::GetFont(std::string name)
+sf::Font& AssetManager::GetFont(std::string name)
 {
-	return mFonts.at(name);
+	return this->_fonts.at(name);
 }
+

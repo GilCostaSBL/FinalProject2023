@@ -1,35 +1,35 @@
-#include "Flash.hpp"
+#include "Flash.h"
 
-Flash::Flash(GameDataRef data) : mData(data)
+Flash::Flash(GameDataRef data) : _data(data)
 {
 
-	mFlashShape = sf::RectangleShape(sf::Vector2f(mData->window.getSize()));
-	mFlashShape.setFillColor(sf::Color(255, 255, 255, 0));
+	_shape = sf::RectangleShape(sf::Vector2f(_data->window.getSize()));
+	_shape.setFillColor(sf::Color(255, 255, 255, 0));
 
-	isFlashOn = true;
+	_flashOn = true;
 }
 
-void Flash::Show(float deltaTime)
+void Flash::Show(float dt)
 {
 
-	if (isFlashOn)
+	if (_flashOn)
 	{
 
-		int alpha = (int) mFlashShape.getFillColor().a + (FLASH_SPEED * deltaTime);
+		int alpha = (int) _shape.getFillColor().a + (FLASH_SPEED * dt);
 
 		if (alpha >= 255.0f)
 		{
 
 			alpha = 255.0f;
-			isFlashOn = false;
+			_flashOn = false;
 		}
 
-		mFlashShape.setFillColor(sf::Color(255, 255, 255, alpha));
+		_shape.setFillColor(sf::Color(255, 255, 255, alpha));
 	}
 	else
 	{
 
-		int alpha = (int) mFlashShape.getFillColor().a - (FLASH_SPEED * deltaTime);
+		int alpha = (int) _shape.getFillColor().a - (FLASH_SPEED * dt);
 
 		if (alpha <= 0.0f)
 		{
@@ -37,12 +37,12 @@ void Flash::Show(float deltaTime)
 			alpha = 0.0f;
 		}
 
-		mFlashShape.setFillColor(sf::Color(255, 255, 255, alpha));
+		_shape.setFillColor(sf::Color(255, 255, 255, alpha));
 	}
 }
 
 void Flash::Draw()
 {
 
-	mData->window.draw(mFlashShape);
+	_data->window.draw(_shape);
 }

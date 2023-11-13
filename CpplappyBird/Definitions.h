@@ -4,7 +4,7 @@
 #define SCREEN_HEIGHT 1024 
 #define FRAMERATE 144.0f
 
-#define SPLASH_STATE_SHOW_TIME 0.1
+#define SPLASH_STATE_SHOW_TIME 1.0
 
 // Splash
 #define SPLASH_SCENE_BACKGROUND_FILEPATH "../Assets/Graphics/SplashBackground.png"
@@ -13,10 +13,10 @@
 #define MAIN_MENU_BACKGROUND_FILEPATH "../Assets/Graphics/sky.png"
 #define GAME_TITLE_FILEPATH "../Assets/Graphics/title.png"
 #define PLAY_BUTTON_FILEPATH "../Assets/Graphics/PlayButton.png"
+
 // Game State
 #define GAME_STATE_BACKGROUND_FILEPATH "../Assets/Graphics/sky.png"
 #define FLAPPY_FONT_FILEPATH "../Assets/Fonts/FlappyFont.ttf"
-
 // Pipe
 #define PIPE_UP_FILEPATH "../Assets/Graphics/PipeUp.png"
 #define PIPE_DOWN_FILEPATH "../Assets/Graphics/PipeDown.png"
@@ -45,7 +45,8 @@
 
 #define PIPE_MOVEMENT_SPEED 200.0f
 
-enum GameStates{
+enum GameStates
+{
 	eReady,
 	ePlaying,
 	eGameOver

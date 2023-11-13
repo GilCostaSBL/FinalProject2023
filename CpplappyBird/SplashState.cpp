@@ -1,9 +1,9 @@
 #include <sstream>
 #include <iostream>
-#include "SplashState.hpp"
-#include "Definitions.hpp"
+#include "SplashState.h"
+#include "Definitions.h"
 
-SplashState::SplashState(GameDataRef data) : mData(data)
+SplashState::SplashState(GameDataRef data) : _data(data)
 {
 
 
@@ -12,33 +12,41 @@ SplashState::SplashState(GameDataRef data) : mData(data)
 void SplashState::Init()
 {
 
-	mData->assets.LoadTexture("SplashStateBackground", SPLASH_SCENE_BACKGROUND_FILEPATH);
-	skyBackground.setTexture(mData->assets.GetTexture("SplashStateBackground"));
+	_data->assets.LoadTexture("SplashStateBackground", SPLASH_SCENE_BACKGROUND_FILEPATH);
+	_background.setTexture(this->_data->assets.GetTexture("SplashStateBackground"));
 }
 
 void SplashState::HandleInput()
 {
+
 	sf::Event event;
-	while (mData->window.pollEvent(event))
+
+	while (_data->window.pollEvent(event))
 	{
+
 		if (sf::Event::Closed == event.type)
-			mData->window.close();
+			_data->window.close();
+
 	}
 }
 
-void SplashState::Update(float deltaTime)
+void SplashState::Update(float dt)
 {
-	if (mClock.getElapsedTime().asSeconds() > SPLASH_STATE_SHOW_TIME)
+
+	if (_clock.getElapsedTime().asSeconds() > SPLASH_STATE_SHOW_TIME)
 	{
+
 		std::cout << "[SplashState::Update] Go to Main Menu" << std::endl;
-		mData->machine.AddState(StateRef(new MainMenuState(mData)));
+		_data->machine.AddState(StateRef(new MainMenuState(this->_data)));
 	}
 }
 
-void SplashState::Draw(float deltaTime)
+void SplashState::Draw(float dt)
 {
-	mData->window.clear();
-	mData->window.display();
+
+	_data->window.clear();
+	_data->window.draw(_background);
+	_data->window.display();
 }
 
 
