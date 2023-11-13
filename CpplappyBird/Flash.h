@@ -11,14 +11,14 @@ public:
 
 	Flash(GameDataRef data);
 
-	void Show(float dt);
+	void Show(float deltaTime);
 	void Draw();
 
 private:
 
-	GameDataRef _data;
+	GameDataRef mData;
 
-	sf::RectangleShape _shape;
-	bool _flashOn;
+	sf::RectangleShape flashShape;
+	bool isFlashOn;
 
 };

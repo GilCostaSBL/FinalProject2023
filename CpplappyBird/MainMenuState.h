@@ -18,11 +18,11 @@ public:
 
 private:
 
-	GameDataRef _data;
-	sf::Clock _clock;
+	GameDataRef mData;
+	sf::Clock mClock;
 
-	sf::Sprite _background;
-	sf::Sprite _title;
-	sf::Sprite _playButton;
+	sf::Sprite mBackground;
+	sf::Sprite mMainTitle;
+	sf::Sprite mPlayButton;
 };
 

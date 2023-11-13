@@ -19,7 +19,7 @@ public:
 
 private:
 
-	std::map<std::string, sf::Texture> _textures;
-	std::map<std::string, sf::Font> _fonts;
+	std::map<std::string, sf::Texture> mTextures;
+	std::map<std::string, sf::Font> mFonts;
 };
 

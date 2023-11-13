@@ -28,10 +28,10 @@ public:
 private:
 
 	// FrameRate
-	const float dt = 1.0f / FRAMERATE;
-	sf::Clock _clock;
+	const float deltaTime = 1.0f / FRAMERATE;
+	sf::Clock mClock;
 
-	GameDataRef _data = std::make_shared<GameData>();
+	GameDataRef mData = std::make_shared<GameData>();
 
 	void Run();
 

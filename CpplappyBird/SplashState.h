@@ -19,9 +19,9 @@ public:
 
 private:
 
-	GameDataRef _data;
-	sf::Clock _clock;
+	GameDataRef mData;
+	sf::Clock mClock;
 
-	sf::Texture _backgroundTexture;
-	sf::Sprite _background;
+	sf::Texture mBackgroundTexture;
+	sf::Sprite mBackground;
 };

@@ -1,32 +1,32 @@
 #include "Land.h"
 
 
-Land::Land(GameDataRef data) : _data(data)
+Land::Land(GameDataRef data) : mData(data)
 {
-	sf::Sprite sprite(_data->assets.GetTexture("Land"));
-	sf::Sprite sprite2(_data->assets.GetTexture("Land"));
+	sf::Sprite sprite(mData->assets.GetTexture("Land"));
+	sf::Sprite sprite2(mData->assets.GetTexture("Land"));
 
-	sprite.setPosition(0, _data->window.getSize().y - sprite.getGlobalBounds().height);
-	sprite2.setPosition(sprite.getGlobalBounds().width, _data->window.getSize().y - sprite2.getGlobalBounds().height);
+	sprite.setPosition(0, mData->window.getSize().y - sprite.getGlobalBounds().height);
+	sprite2.setPosition(sprite.getGlobalBounds().width, mData->window.getSize().y - sprite2.getGlobalBounds().height);
 
-	_landSprite.push_back(sprite);
-	_landSprite.push_back(sprite2);
+	mLandSprite.push_back(sprite);
+	mLandSprite.push_back(sprite2);
 }
 
-void Land::MoveLand(float dt)
+void Land::MoveLand(float deltaTime)
 {
 
-	for (unsigned int i = 0; i < _landSprite.size(); i++)
+	for (unsigned int i = 0; i < mLandSprite.size(); i++)
 	{
 
-		float movement = PIPE_MOVEMENT_SPEED * dt;
-		_landSprite.at(i).move(-movement, 0.0f);
+		float movement = PIPE_MOVEMENT_SPEED * deltaTime;
+		mLandSprite.at(i).move(-movement, 0.0f);
 
-		if (_landSprite.at(i).getPosition().x < 0 - _landSprite.at(i).getGlobalBounds().width)
+		if (mLandSprite.at(i).getPosition().x < 0 - mLandSprite.at(i).getGlobalBounds().width)
 		{
-			sf::Vector2f position(_data->window.getSize().x, _landSprite.at(i).getPosition().y);
+			sf::Vector2f position(mData->window.getSize().x, mLandSprite.at(i).getPosition().y);
 
-			_landSprite.at(i).setPosition(position);
+			mLandSprite.at(i).setPosition(position);
 		}
 	}
 }
@@ -34,15 +34,15 @@ void Land::MoveLand(float dt)
 void Land::DrawLand()
 {
 
-	for (unsigned int i = 0; i < _landSprite.size(); i++)
+	for (unsigned int i = 0; i < mLandSprite.size(); i++)
 	{
 
-		_data->window.draw(_landSprite.at(i));
+		mData->window.draw(mLandSprite.at(i));
 	}
 }
 
 const std::vector<sf::Sprite>& Land::GetSprites() const
 {
 
-	return _landSprite;
+	return mLandSprite;
 }

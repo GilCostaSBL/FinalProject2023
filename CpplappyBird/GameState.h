@@ -25,11 +25,11 @@ public:
 
 private:
 
-	GameDataRef _data;
+	GameDataRef mData;
 
-	sf::Sprite _background;
+	sf::Sprite mBackground;
 
-	sf::Clock _clock;
+	sf::Clock mClock;
 	Pipe* pipe;
 	Land* land;
 	Bird* bird;
@@ -37,16 +37,16 @@ private:
 	Collision collision;
 	HUD* hud;
 
-	sf::SoundBuffer _hitSoundBuffer;
-	sf::SoundBuffer _wingSoundBuffer;
-	sf::SoundBuffer _pointSoundBuffer;
+	sf::SoundBuffer mHitSoundBuffer;
+	sf::SoundBuffer mWingSoundBuffer;
+	sf::SoundBuffer mPointSoundBuffer;
 
-	sf::Sound _hitSound;
-	sf::Sound _wingSound;
-	sf::Sound _pointSound;
+	sf::Sound mHitSound;
+	sf::Sound mWingSound;
+	sf::Sound mPointSound;
 
-	int _gameState;
+	int mGameState;
 
-	int _score;
+	int mScore;
 
 };

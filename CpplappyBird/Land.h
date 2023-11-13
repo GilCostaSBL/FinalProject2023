@@ -12,14 +12,14 @@ public:
 
 	Land(GameDataRef data);
 
-	void MoveLand(float dt);
+	void MoveLand(float deltaTime);
 	void DrawLand();
 
 	const std::vector<sf::Sprite>& GetSprites() const;
 
 private:
 
-	GameDataRef _data;
+	GameDataRef mData;
 
-	std::vector<sf::Sprite> _landSprite;
+	std::vector<sf::Sprite> mLandSprite;
 };

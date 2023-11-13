@@ -172,16 +172,16 @@
     <ClInclude Include="Definitions.h" />
     <ClInclude Include="Flash.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="GameOverState.hpp" />
-    <ClInclude Include="GameState.hpp" />
+    <ClInclude Include="GameOverState.h" />
+    <ClInclude Include="GameState.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Land.h" />
-    <ClInclude Include="MainMenuState.hpp" />
+    <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="Pipe.h" />
-    <ClInclude Include="SplashState.hpp" />
-    <ClInclude Include="State.hpp" />
-    <ClInclude Include="StateMachine.hpp" />
+    <ClInclude Include="SplashState.h" />
+    <ClInclude Include="State.h" />
+    <ClInclude Include="StateMachine.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

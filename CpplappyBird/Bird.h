@@ -12,22 +12,22 @@ public:
 	Bird(GameDataRef data);
 
 	void Draw();
-	void Animate(float dt);
-	void Update(float dt);
+	void Animate(float deltaTime);
+	void Update(float deltaTime);
 	void Tap();
 	const sf::Sprite& GetSprite() const;
 
 private:
 
-	GameDataRef _data;
+	GameDataRef mData;
 
-	sf::Sprite _birdSprite;
-	std::vector<sf::Texture> _animationFrames;
+	sf::Sprite mBirdSprites;
+	std::vector<sf::Texture> mAnimationFrames;
 
-	unsigned int _animationIterator;
-	sf::Clock _clock;
-	sf::Clock _movementClock;
-	int _birdState;
+	unsigned int animIter;
+	sf::Clock mClock;
+	sf::Clock mMovementClock;
+	int mBirdState;
 
-	float _rotation;
+	float mRotation;
 };

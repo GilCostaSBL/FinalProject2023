@@ -1,27 +1,27 @@
 #include "Bird.h"
 
-Bird::Bird(GameDataRef data) : _data(data)
+Bird::Bird(GameDataRef data) : mData(data)
 {
 
-	_animationIterator = 0;
+	animIter = 0;
 
-	_animationFrames.push_back(_data->assets.GetTexture("BirdFrame1"));
-	_animationFrames.push_back(_data->assets.GetTexture("BirdFrame2"));
-	_animationFrames.push_back(_data->assets.GetTexture("BirdFrame3"));
-	_animationFrames.push_back(_data->assets.GetTexture("BirdFrame4"));
+	mAnimationFrames.push_back(mData->assets.GetTexture("BirdFrame1"));
+	mAnimationFrames.push_back(mData->assets.GetTexture("BirdFrame2"));
+	mAnimationFrames.push_back(mData->assets.GetTexture("BirdFrame3"));
+	mAnimationFrames.push_back(mData->assets.GetTexture("BirdFrame4"));
 
 
-	_birdSprite.setTexture(_animationFrames.at(_animationIterator));
+	mBirdSprites.setTexture(mAnimationFrames.at(animIter));
 
-	_birdSprite.setPosition((_data->window.getSize().x / 4) - (_birdSprite.getGlobalBounds().width / 2),
-		(_data->window.getSize().y / 2) - (_birdSprite.getGlobalBounds().height / 2));
+	mBirdSprites.setPosition((mData->window.getSize().x / 4) - (mBirdSprites.getGlobalBounds().width / 2),
+		(mData->window.getSize().y / 2) - (mBirdSprites.getGlobalBounds().height / 2));
 
-	_birdState = BIRD_STATE_STILL;
+	mBirdState = BIRD_STATE_STILL;
 
-	sf::Vector2f origin = sf::Vector2f(_birdSprite.getGlobalBounds().width / 2, _birdSprite.getGlobalBounds().height / 2);
+	sf::Vector2f origin = sf::Vector2f(mBirdSprites.getGlobalBounds().width / 2, mBirdSprites.getGlobalBounds().height / 2);
 
-	_birdSprite.setOrigin(origin);
-	_rotation = 0;
+	mBirdSprites.setOrigin(origin);
+	mRotation = 0;
 
 }
 
@@ -29,68 +29,68 @@ Bird::Bird(GameDataRef data) : _data(data)
 void Bird::Draw()
 {
 
-	_data->window.draw(_birdSprite);
+	mData->window.draw(mBirdSprites);
 }
 
-void Bird::Animate(float dt)
+void Bird::Animate(float deltaTime)
 {
 
-	if (_clock.getElapsedTime().asSeconds() > BIRD_ANIMATION_DURATION / _animationFrames.size())
+	if (mClock.getElapsedTime().asSeconds() > BIRD_ANIMATION_DURATION / mAnimationFrames.size())
 	{
 
-		if (_animationIterator < _animationFrames.size() - 1)
+		if (animIter < mAnimationFrames.size() - 1)
 		{
 
-			_animationIterator++;
+			animIter++;
 		}
 		else
 		{
-			_animationIterator = 0;
+			animIter = 0;
 		}
 
-		_birdSprite.setTexture(_animationFrames.at(_animationIterator));
+		mBirdSprites.setTexture(mAnimationFrames.at(animIter));
 
-		_clock.restart();
+		mClock.restart();
 	}
 }
 
-void Bird::Update(float dt)
+void Bird::Update(float deltaTime)
 {
 
-	if (BIRD_STATE_FALLING == _birdState)
+	if (BIRD_STATE_FALLING == mBirdState)
 	{
 
-		_birdSprite.move(0, GRAVITY * dt);
-		_rotation += ROTATION_SPEED * dt;
+		mBirdSprites.move(0, GRAVITY * deltaTime);
+		mRotation += ROTATION_SPEED * deltaTime;
 
-		if (_rotation > 25.0f)
+		if (mRotation > 25.0f)
 		{
 
-			_rotation = 25.0f;
+			mRotation = 25.0f;
 		}
 
-		_birdSprite.setRotation(_rotation);
+		mBirdSprites.setRotation(mRotation);
 	}
-	else if (BIRD_STATE_FLYING == _birdState)
+	else if (BIRD_STATE_FLYING == mBirdState)
 	{
 
-		_birdSprite.move(0, -FLYING_SPEED * dt);
-		_rotation -= ROTATION_SPEED * dt;
+		mBirdSprites.move(0, -FLYING_SPEED * deltaTime);
+		mRotation -= ROTATION_SPEED * deltaTime;
 
-		if (_rotation < 25.0f)
+		if (mRotation < 25.0f)
 		{
 
-			_rotation = -25.0f;
+			mRotation = -25.0f;
 		}
 
-		_birdSprite.setRotation(_rotation);
+		mBirdSprites.setRotation(mRotation);
 	}
 
-	if (_movementClock.getElapsedTime().asSeconds() > FLYING_DURATION)
+	if (mMovementClock.getElapsedTime().asSeconds() > FLYING_DURATION)
 	{
 
-		_movementClock.restart();
-		_birdState = BIRD_STATE_FALLING;
+		mMovementClock.restart();
+		mBirdState = BIRD_STATE_FALLING;
 	}
 
 }
@@ -98,11 +98,11 @@ void Bird::Update(float dt)
 void Bird::Tap()
 {
 
-	_movementClock.restart();
-	_birdState = BIRD_STATE_FLYING;
+	mMovementClock.restart();
+	mBirdState = BIRD_STATE_FLYING;
 }
 
 const sf::Sprite& Bird::GetSprite() const
 {
-	return _birdSprite;
+	return mBirdSprites;
 }

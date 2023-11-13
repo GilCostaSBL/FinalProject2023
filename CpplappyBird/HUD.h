@@ -15,7 +15,7 @@ public:
 
 private:
 
-	GameDataRef _data;
-	sf::Text _scoreText;
+	GameDataRef mData;
+	sf::Text mScoreText;
 };
 

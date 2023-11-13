@@ -16,7 +16,7 @@ public:
 	void SpawnTopPipe();
 	void SpawnIvisiblePipe();
 	void SpawnScoringPipe();
-	void MovePipes(float dt);
+	void MovePipes(float deltaTime);
 	void DrawPipes();
 	void RandomisePipeOffset();
 
@@ -25,10 +25,10 @@ public:
 
 private:
 
-	GameDataRef _data;
+	GameDataRef mData;
 	std::vector<sf::Sprite> pipeSprites;
 	std::vector<sf::Sprite> scoringPipes;
 
-	int _landHeight;
-	int _pipeSpawnYOffset;
+	int mLandHeight;
+	int mPipeYGap;
 };

@@ -2,7 +2,6 @@
 
 #include <memory>
 #include <stack>
-
 #include "State.h"
 
 typedef std::unique_ptr<State> StateRef;
@@ -23,10 +22,10 @@ public:
 
 private:
 
-	std::stack<StateRef> _states;
-	StateRef _newState;
+	std::stack<StateRef> mStates;
+	StateRef mNewState;
 
-	bool _isRemoving;
-	bool _isAdding;
-	bool _isReplacing;
+	bool isRemoving;
+	bool isAdding;
+	bool isReplacing;
 };

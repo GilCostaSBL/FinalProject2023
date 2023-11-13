@@ -13,25 +13,25 @@ public:
 
 	void Init();
 	void HandleInput();
-	void Update(float dt);
-	void Draw(float dt);
+	void Update(float deltaTime);
+	void Draw(float deltaTime);
 
 private:
 
-	GameDataRef _data;
+	GameDataRef mData;
 
-	sf::Sprite _background;
+	sf::Sprite mBackground;
 
-	sf::Sprite _gameOverTitle;
-	sf::Sprite _gameOverContainer;
-	sf::Sprite _retryButton;
-	sf::Sprite _medal;
+	sf::Sprite mGameOverTitle;
+	sf::Sprite mGameOverContainer;
+	sf::Sprite mRetryButton;
+	sf::Sprite mMedal;
 
-	sf::Text _scoreText;
-	sf::Text _highScoreText;
+	sf::Text mScoreText;
+	sf::Text mHighScoreText;
 
-	int _score;
-	int _highScore;
+	int mScore;
+	int mHighScore;
 
 };
 
