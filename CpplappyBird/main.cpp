@@ -1,8 +1,10 @@
-#include <SFML/Graphics.hpp>
+#include <iostream>
+#include "Game.hpp"
+#include "Definitions.hpp"
 
-int main()
-{
+int main() {
+	
+	Game game = Game(SCREEN_WIDTH, SCREEN_HEIGHT, "Cpplappy Bird");
 
-
-	return 0;
+	return EXIT_SUCCESS;
 }
