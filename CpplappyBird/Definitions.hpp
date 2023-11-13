@@ -13,10 +13,10 @@
 #define MAIN_MENU_BACKGROUND_FILEPATH "../Assets/Graphics/sky.png"
 #define GAME_TITLE_FILEPATH "../Assets/Graphics/title.png"
 #define PLAY_BUTTON_FILEPATH "../Assets/Graphics/PlayButton.png"
-
 // Game State
 #define GAME_STATE_BACKGROUND_FILEPATH "../Assets/Graphics/sky.png"
 #define FLAPPY_FONT_FILEPATH "../Assets/Fonts/FlappyFont.ttf"
+
 // Pipe
 #define PIPE_UP_FILEPATH "../Assets/Graphics/PipeUp.png"
 #define PIPE_DOWN_FILEPATH "../Assets/Graphics/PipeDown.png"
