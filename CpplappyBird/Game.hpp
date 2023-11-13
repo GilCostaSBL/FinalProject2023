@@ -24,10 +24,10 @@ class Game
 public:
 
 	Game(int width, int height, std::string title);
-
+	~Game() {}
 private:
 
-	// FrameRate
+	// Making the game framerate indepedent
 	const float deltaTime = 1.0f / FRAMERATE;
 	sf::Clock mClock;
 
