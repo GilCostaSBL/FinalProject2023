@@ -53,7 +53,7 @@ enum GameStates
 };
 
 // Game Over
-#define GAME_OVER_BACKGROUND_FILEPATH "../Assets/Graphics/sky.png"
+#define GAME_OVER_BACKGROUND_FILEPATH "../Assets/Graphics/sky_GameOver.png"
 #define GAME_OVER_TITLE_FILEPATH "../Assets/Graphics/Game-Over-Title.png"
 #define GAME_OVER_BODY_FILEPATH "../Assets/Graphics/Game-Over-Body.png"
 #define FLASH_SPEED 1500.0f

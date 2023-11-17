@@ -47,7 +47,6 @@ private:
 	sf::Sound mPointSound;
 
 	int mGameState;
-
 	int mScore;
 
 };

@@ -8,12 +8,10 @@
 GameOverState::GameOverState(GameDataRef data, int score) : mData(data), mScore(score)
 {
 	std::cout << "[GameOverState::GameOverState] Game state" << std::endl;
-
 }
 
 void GameOverState::Init()
 {
-
 	std::ifstream readFile;
 	readFile.open(HIGHEST_SCORE_PATH, std::ios::app);
 
@@ -30,7 +28,6 @@ void GameOverState::Init()
 	}
 
 	readFile.close();
-
 	std::ofstream writeFile(HIGHEST_SCORE_PATH);
 
 	if (writeFile.is_open())
@@ -39,7 +36,6 @@ void GameOverState::Init()
 		{
 			mHighScore = mScore;
 		}
-
 		writeFile << mHighScore;
 	}
 	else
@@ -108,15 +104,13 @@ void GameOverState::Init()
 
 void GameOverState::HandleInput()
 {
-
 	sf::Event event;
-
 	while (mData->window.pollEvent(event))
 	{
-
 		if (sf::Event::Closed == event.type)
+		{
 			mData->window.close();
-
+		}
 		if (mData->input.IsSpriteClicked(mRetryButton, sf::Mouse::Left, mData->window))
 		{
 			mData->machine.AddState(StateRef(new GameState(mData)), true);
@@ -127,12 +121,10 @@ void GameOverState::HandleInput()
 void GameOverState::Update(float deltaTime)
 {
 
-
 }
 
 void GameOverState::Draw(float deltaTime)
 {
-
 	mData->window.clear();
 	mData->window.draw(mBackground);
 	mData->window.draw(mGameOverContainer);

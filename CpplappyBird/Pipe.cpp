@@ -9,7 +9,6 @@ Pipe::Pipe(GameDataRef data) : mData(data)
 
 void Pipe::SpawnBottomPipe()
 {
-
 	sf::Sprite landSprite1(mData->assets.GetTexture("PipeUp"));
 	landSprite1.setPosition(mData->window.getSize().x, mData->window.getSize().y - landSprite1.getGlobalBounds().height - mPipeYGap);
 	pipeSprites.push_back(landSprite1);
@@ -17,7 +16,6 @@ void Pipe::SpawnBottomPipe()
 
 void Pipe::SpawnTopPipe()
 {
-
 	sf::Sprite landSprite1(mData->assets.GetTexture("PipeDown"));
 	landSprite1.setPosition(mData->window.getSize().x, -mPipeYGap);
 	pipeSprites.push_back(landSprite1);
@@ -25,7 +23,6 @@ void Pipe::SpawnTopPipe()
 
 void Pipe::SpawnInvisiblePipe()
 {
-
 	sf::Sprite landSprite1(mData->assets.GetTexture("PipeUp"));
 	landSprite1.setPosition(mData->window.getSize().x, -mPipeYGap);
 	landSprite1.setColor(sf::Color(0, 0, 0, 0));
@@ -34,7 +31,6 @@ void Pipe::SpawnInvisiblePipe()
 
 void Pipe::SpawnScoringPipe()
 {
-
 	sf::Sprite landSprite1(mData->assets.GetTexture("ScoringPipe"));
 	landSprite1.setPosition(mData->window.getSize().x, 0);
 	scoringPipes.push_back(landSprite1);
@@ -54,31 +50,24 @@ void Pipe::MovePipes(float deltaTime)
 			float movement = PIPE_MOVEMENT_SPEED * deltaTime;
 			pipeSprites.at(i).move(-movement, 0);
 		}
-
 	}
 
 	for (unsigned int i = 0; i < scoringPipes.size(); i++)
 	{
-
 		if (scoringPipes.at(i).getPosition().x < 0 - scoringPipes.at(i).getGlobalBounds().width)
 		{
-
 			scoringPipes.erase(scoringPipes.begin() + i);
 		}
 		else
 		{
-
 			float movement = PIPE_MOVEMENT_SPEED * deltaTime;
 			scoringPipes.at(i).move(-movement, 0);
 		}
-
 	}
-
 }
 
 void Pipe::DrawPipes()
 {
-
 	for (unsigned short int i = 0; i < pipeSprites.size(); i++)
 	{
 		mData->window.draw(pipeSprites.at(i));

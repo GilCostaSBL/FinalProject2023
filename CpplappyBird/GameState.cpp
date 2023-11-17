@@ -68,8 +68,9 @@ void GameState::HandleInput()
 	while (mData->window.pollEvent(event))
 	{
 		if (sf::Event::Closed == event.type)
+		{
 			mData->window.close();
-
+		}
 		if (mData->input.IsSpriteClicked(mBackground, sf::Mouse::Left, mData->window))
 		{
 			if (GameStates::eGameOver != mGameState)
@@ -84,7 +85,6 @@ void GameState::HandleInput()
 
 void GameState::Update(float deltaTime)
 {
-
 	if (GameStates::eGameOver != mGameState)
 	{
 		bird->Animate(deltaTime);
@@ -161,7 +161,7 @@ void GameState::Update(float deltaTime)
 }
 
 void GameState::Draw(float deltaTime)
-{ 
+{
 	mData->window.clear();
 
 	mData->window.draw(mBackground);
