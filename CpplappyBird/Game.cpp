@@ -5,7 +5,6 @@
 
 Game::Game(int width, int height, std::string title)
 {
-
 	srand(time(NULL));
 
 	mData->window.create(sf::VideoMode(width, height), title, sf::Style::Close | sf::Style::Titlebar);
@@ -16,8 +15,9 @@ Game::Game(int width, int height, std::string title)
 
 void Game::Run()
 {
-
-	float newTime, frameTime, interpolation;
+	float newTime;
+	float frameTime;
+	float interpolation;
 
 	float currentTime = this->mClock.getElapsedTime().asSeconds();
 	float accumulator = 0.0f;

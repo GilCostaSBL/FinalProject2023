@@ -45,7 +45,7 @@ void SplashState::Draw(float deltaTime)
 {
 
 	mData->window.clear();
-	mData->window.draw(mBackground);
+	//mData->window.draw(mBackground);
 	mData->window.display();
 }
 

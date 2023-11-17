@@ -7,12 +7,19 @@
 GameState::GameState(GameDataRef data) : mData(data)
 {
 	std::cout << "[GameState::GameState] Game state" << std::endl;
+}
 
+GameState::~GameState()
+{
+	delete pipe;
+	delete land;
+	delete bird;
+	delete flash;
+	delete hud;
 }
 
 void GameState::Init()
 {
-
 	if (!mHitSoundBuffer.loadFromFile(HIT_SOUND_FILEPATH))
 	{
 		std::cout << "[GameState::Init] Hit sound could not be loaded" << std::endl;
@@ -57,12 +64,9 @@ void GameState::Init()
 
 void GameState::HandleInput()
 {
-
 	sf::Event event;
-
 	while (mData->window.pollEvent(event))
 	{
-
 		if (sf::Event::Closed == event.type)
 			mData->window.close();
 
@@ -70,13 +74,11 @@ void GameState::HandleInput()
 		{
 			if (GameStates::eGameOver != mGameState)
 			{
-
 				mGameState = GameStates::ePlaying;
-				bird->Tap();
+				bird->Fly();
 				mWingSound.play();
 			}
 		}
-
 	}
 }
 
@@ -85,21 +87,18 @@ void GameState::Update(float deltaTime)
 
 	if (GameStates::eGameOver != mGameState)
 	{
-
 		bird->Animate(deltaTime);
 		land->MoveLand(deltaTime);
 	}
 
 	if (GameStates::ePlaying == mGameState)
 	{
-
 		pipe->MovePipes(deltaTime);
-
 		if (mClock.getElapsedTime().asSeconds() > PIPE_SPAWN_FREQUENCY)
 		{
 			pipe->RandomisePipeOffset();
 
-			pipe->SpawnIvisiblePipe();
+			pipe->SpawnInvisiblePipe();
 			pipe->SpawnBottomPipe();
 			pipe->SpawnTopPipe();
 			pipe->SpawnScoringPipe();
@@ -107,22 +106,16 @@ void GameState::Update(float deltaTime)
 			mClock.restart();
 		}
 
-
 		bird->Update(deltaTime);
-
 
 		// Ground collision
 		std::vector<sf::Sprite> landSprites = land->GetSprites();
-
 		for (int i = 0; i < landSprites.size(); i++)
 		{
 			if (collision.CheckSpriteCollision(bird->GetSprite(), 0.7f, landSprites.at(i), 1.0f))
 			{
-
 				mGameState = GameStates::eGameOver;
-
 				mClock.restart();
-
 				mHitSound.play();
 			}
 		}
@@ -134,46 +127,32 @@ void GameState::Update(float deltaTime)
 		{
 			if (collision.CheckSpriteCollision(bird->GetSprite(), 0.625f, pipeSprites.at(i), 1.0f))
 			{
-
 				mGameState = GameStates::eGameOver;
-
 				mClock.restart();
-
 				mHitSound.play();
 			}
 		}
 
-
 		if (GameStates::ePlaying == mGameState)
 		{
-
-// Scoring pipe collision
+			// Scoring pipe collision
 			std::vector<sf::Sprite>& scoringSprites = pipe->GetScoringSprites();
-			//std::cout << "Sp: " << scoringSprites.size() << std::endl;
-
 			for (int i = 0; i < scoringSprites.size(); i++)
 			{
-				if (collision.CheckSpriteCollision(bird->GetSprite(), 0.625f, scoringSprites.at(i), 1.0f))
+				if (collision.CheckSpriteCollision(bird->GetSprite(), 0.625f, scoringSprites.at(i), 0.9f))
 				{
-
 					mScore++;
-
 					hud->UpdateScore(mScore);
-
 					scoringSprites.erase(scoringSprites.begin() + i);
-
 					mPointSound.play();
 				}
 			}
 		}
-
-
 	}
 
 	// GameOver flash
 	if (GameStates::eGameOver == mGameState)
 	{
-
 		flash->Show(deltaTime);
 
 		if (mClock.getElapsedTime().asSeconds() > TIME_BEFORE_GAME_OVER)
@@ -182,8 +161,7 @@ void GameState::Update(float deltaTime)
 }
 
 void GameState::Draw(float deltaTime)
-{
-
+{ 
 	mData->window.clear();
 
 	mData->window.draw(mBackground);

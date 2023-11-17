@@ -2,14 +2,12 @@
 
 Bird::Bird(GameDataRef data) : mData(data)
 {
-
 	animIter = 0;
 
 	mAnimationFrames.push_back(mData->assets.GetTexture("BirdFrame1"));
 	mAnimationFrames.push_back(mData->assets.GetTexture("BirdFrame2"));
 	mAnimationFrames.push_back(mData->assets.GetTexture("BirdFrame3"));
 	mAnimationFrames.push_back(mData->assets.GetTexture("BirdFrame4"));
-
 
 	mBirdSprites.setTexture(mAnimationFrames.at(animIter));
 
@@ -22,7 +20,6 @@ Bird::Bird(GameDataRef data) : mData(data)
 
 	mBirdSprites.setOrigin(origin);
 	mRotation = 0;
-
 }
 
 
@@ -34,13 +31,10 @@ void Bird::Draw()
 
 void Bird::Animate(float deltaTime)
 {
-
-	if (mClock.getElapsedTime().asSeconds() > BIRD_ANIMATION_DURATION / mAnimationFrames.size())
+	if (mAnimClock.getElapsedTime().asSeconds() > BIRD_ANIMATION_DURATION / mAnimationFrames.size())
 	{
-
 		if (animIter < mAnimationFrames.size() - 1)
 		{
-
 			animIter++;
 		}
 		else
@@ -49,23 +43,19 @@ void Bird::Animate(float deltaTime)
 		}
 
 		mBirdSprites.setTexture(mAnimationFrames.at(animIter));
-
-		mClock.restart();
+		mAnimClock.restart();
 	}
 }
 
 void Bird::Update(float deltaTime)
 {
-
 	if (BIRD_STATE_FALLING == mBirdState)
 	{
-
 		mBirdSprites.move(0, GRAVITY * deltaTime);
 		mRotation += ROTATION_SPEED * deltaTime;
 
 		if (mRotation > 25.0f)
 		{
-
 			mRotation = 25.0f;
 		}
 
@@ -73,13 +63,11 @@ void Bird::Update(float deltaTime)
 	}
 	else if (BIRD_STATE_FLYING == mBirdState)
 	{
-
 		mBirdSprites.move(0, -FLYING_SPEED * deltaTime);
 		mRotation -= ROTATION_SPEED * deltaTime;
 
 		if (mRotation < 25.0f)
 		{
-
 			mRotation = -25.0f;
 		}
 
@@ -88,16 +76,13 @@ void Bird::Update(float deltaTime)
 
 	if (mMovementClock.getElapsedTime().asSeconds() > FLYING_DURATION)
 	{
-
 		mMovementClock.restart();
 		mBirdState = BIRD_STATE_FALLING;
 	}
-
 }
 
-void Bird::Tap()
+void Bird::Fly()
 {
-
 	mMovementClock.restart();
 	mBirdState = BIRD_STATE_FLYING;
 }

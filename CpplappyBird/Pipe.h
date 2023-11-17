@@ -1,8 +1,8 @@
 #pragma once
 
 #include <SFML\Graphics.hpp>
-#include "Game.h"
 #include <vector>
+#include "Game.h"
 #include "Definitions.h"
 
 class Pipe
@@ -14,13 +14,13 @@ public:
 
 	void SpawnBottomPipe();
 	void SpawnTopPipe();
-	void SpawnIvisiblePipe();
+	void SpawnInvisiblePipe();
 	void SpawnScoringPipe();
 	void MovePipes(float deltaTime);
 	void DrawPipes();
 	void RandomisePipeOffset();
 
-	const std::vector<sf::Sprite>& GetSprites() const;
+	const std::vector<sf::Sprite>& GetSprites();
 	std::vector<sf::Sprite>& GetScoringSprites();
 
 private:

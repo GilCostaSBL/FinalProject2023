@@ -4,7 +4,7 @@
 #define SCREEN_HEIGHT 1024 
 #define FRAMERATE 144.0f
 
-#define SPLASH_STATE_SHOW_TIME 1.0
+#define SPLASH_STATE_SHOW_TIME 0.2
 
 // Splash
 #define SPLASH_SCENE_BACKGROUND_FILEPATH "../Assets/Graphics/SplashBackground.png"
@@ -21,14 +21,14 @@
 #define PIPE_UP_FILEPATH "../Assets/Graphics/PipeUp.png"
 #define PIPE_DOWN_FILEPATH "../Assets/Graphics/PipeDown.png"
 #define PIPE_SCORING_FILEPATH "../Assets/Graphics/InvisibleScoringPipe.png"
-#define PIPE_SPAWN_FREQUENCY 3.0f //SECONDS
+#define PIPE_SPAWN_FREQUENCY 3.0f //Seconds
 // Land
 #define LAND_FILEPATH "../Assets/Graphics/Land.png"
 // Bird
-#define BIRD_FRAME_1_FILEPATH "../Assets/Graphics/bird-01.png"
-#define BIRD_FRAME_2_FILEPATH "../Assets/Graphics/bird-02.png"
-#define BIRD_FRAME_3_FILEPATH "../Assets/Graphics/bird-03.png"
-#define BIRD_FRAME_4_FILEPATH "../Assets/Graphics/bird-04.png"
+#define BIRD_FRAME_1_FILEPATH "../Assets/Graphics/CppBird1.png"
+#define BIRD_FRAME_2_FILEPATH "../Assets/Graphics/CppBird2.png"
+#define BIRD_FRAME_3_FILEPATH "../Assets/Graphics/CppBird3.png"
+#define BIRD_FRAME_4_FILEPATH "../Assets/Graphics/CppBird4.png"
 #define BIRD_ANIMATION_DURATION 0.4f
 #define BIRD_STATE_STILL 1
 #define BIRD_STATE_FALLING 2

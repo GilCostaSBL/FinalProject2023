@@ -14,7 +14,7 @@ public:
 	void Draw();
 	void Animate(float deltaTime);
 	void Update(float deltaTime);
-	void Tap();
+	void Fly();
 	const sf::Sprite& GetSprite() const;
 
 private:
@@ -23,11 +23,11 @@ private:
 
 	sf::Sprite mBirdSprites;
 	std::vector<sf::Texture> mAnimationFrames;
-
 	unsigned int animIter;
-	sf::Clock mClock;
-	sf::Clock mMovementClock;
-	int mBirdState;
 
+	sf::Clock mAnimClock;
+	sf::Clock mMovementClock;
+
+	int mBirdState;
 	float mRotation;
 };

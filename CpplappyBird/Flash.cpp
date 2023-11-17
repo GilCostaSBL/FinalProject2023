@@ -2,7 +2,6 @@
 
 Flash::Flash(GameDataRef data) : mData(data)
 {
-
 	flashShape = sf::RectangleShape(sf::Vector2f(mData->window.getSize()));
 	flashShape.setFillColor(sf::Color(255, 255, 255, 0));
 
@@ -11,15 +10,11 @@ Flash::Flash(GameDataRef data) : mData(data)
 
 void Flash::Show(float deltaTime)
 {
-
 	if (isFlashOn)
 	{
-
 		int alpha = (int) flashShape.getFillColor().a + (FLASH_SPEED * deltaTime);
-
 		if (alpha >= 255.0f)
 		{
-
 			alpha = 255.0f;
 			isFlashOn = false;
 		}
@@ -28,12 +23,9 @@ void Flash::Show(float deltaTime)
 	}
 	else
 	{
-
 		int alpha = (int) flashShape.getFillColor().a - (FLASH_SPEED * deltaTime);
-
 		if (alpha <= 0.0f)
 		{
-
 			alpha = 0.0f;
 		}
 
@@ -43,6 +35,5 @@ void Flash::Show(float deltaTime)
 
 void Flash::Draw()
 {
-
 	mData->window.draw(flashShape);
 }
