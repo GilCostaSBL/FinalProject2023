@@ -4,11 +4,6 @@
 #define SCREEN_HEIGHT 1024 
 #define FRAMERATE 144.0f
 
-#define SPLASH_STATE_SHOW_TIME 0.2
-
-// Splash
-#define SPLASH_SCENE_BACKGROUND_FILEPATH "../Assets/Graphics/SplashBackground.png"
-
 // Main Menu
 #define MAIN_MENU_BACKGROUND_FILEPATH "../Assets/Graphics/sky.png"
 #define GAME_TITLE_FILEPATH "../Assets/Graphics/title.png"

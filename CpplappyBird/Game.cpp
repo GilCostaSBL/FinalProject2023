@@ -1,5 +1,5 @@
 #include "Game.h"
-#include "SplashState.h"
+#include "MainMenuState.h"
 #include <stdlib.h>
 #include <time.h>
 
@@ -8,7 +8,7 @@ Game::Game(int width, int height, std::string title)
 	srand(time(NULL));
 
 	mData->window.create(sf::VideoMode(width, height), title, sf::Style::Close | sf::Style::Titlebar);
-	mData->machine.AddState(StateRef(new SplashState(this->mData)));
+	mData->machine.AddState(StateRef(new MainMenuState(this->mData)));
 
 	this->Run();
 }
@@ -24,7 +24,6 @@ void Game::Run()
 
 	while (this->mData->window.isOpen())
 	{
-
 		this->mData->machine.ProcessStateChanges();
 
 		newTime = this->mClock.getElapsedTime().asSeconds();
