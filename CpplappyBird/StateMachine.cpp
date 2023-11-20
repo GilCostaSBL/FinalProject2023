@@ -10,23 +10,18 @@ void StateMachine::AddState(StateRef newState, bool isReplacing)
 
 void StateMachine::RemoveState()
 {
-
 	this->isRemoving = true;
 }
 
 void StateMachine::ProcessStateChanges()
 {
-
 	if (this->isRemoving && !this->mStates.empty())
 	{
-
 		this->mStates.pop();
-
 		if (!this->mStates.empty())
 		{
 			this->mStates.top()->Resume();
 		}
-
 		this->isRemoving = true;
 	}
 

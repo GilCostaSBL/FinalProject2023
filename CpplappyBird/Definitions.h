@@ -6,7 +6,7 @@
 
 // Main Menu
 #define MAIN_MENU_BACKGROUND_FILEPATH "../Assets/Graphics/sky.png"
-#define GAME_TITLE_FILEPATH "../Assets/Graphics/title.png"
+#define GAME_TITLE_FILEPATH "../Assets/Graphics/MainTitle.png"
 #define PLAY_BUTTON_FILEPATH "../Assets/Graphics/PlayButton.png"
 
 // Game State

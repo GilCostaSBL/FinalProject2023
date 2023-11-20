@@ -10,7 +10,7 @@ Game::Game(int width, int height, std::string title)
 	mData->window.create(sf::VideoMode(width, height), title, sf::Style::Close | sf::Style::Titlebar);
 	mData->machine.AddState(StateRef(new MainMenuState(this->mData)));
 
-	this->Run();
+	Run();
 }
 
 void Game::Run()
@@ -19,14 +19,14 @@ void Game::Run()
 	float frameTime;
 	float interpolation;
 
-	float currentTime = this->mClock.getElapsedTime().asSeconds();
+	float currentTime = mClock.getElapsedTime().asSeconds();
 	float accumulator = 0.0f;
 
 	while (this->mData->window.isOpen())
 	{
 		this->mData->machine.ProcessStateChanges();
 
-		newTime = this->mClock.getElapsedTime().asSeconds();
+		newTime = mClock.getElapsedTime().asSeconds();
 		frameTime = newTime - currentTime;
 
 		if (frameTime > 0.25f)
